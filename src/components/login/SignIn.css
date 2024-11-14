@@ -1,0 +1,135 @@
+
+/* SignIn.css */
+
+/* Estructura General */
+.wrapper.SignUp {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: 600;
+  }
+  
+  /* Estilo para el mensaje de error */
+  .error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  /* Estilos para los campos de entrada */
+  .input-box {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .input-box input {
+    width: 100%;
+    padding: 12px 20px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input-box input:focus {
+    border-color: #4caf50;
+  }
+  
+  .input-box label {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+    background-color: #fff;
+    padding: 0 5px;
+  }
+  
+  /* Iconos dentro de los campos de entrada */
+  .input-box .icon {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    font-size: 20px;
+    color: #888;
+  }
+  
+  /* Estilo para el botón de SignIn */
+  button.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button.btn:hover {
+    background-color: #45a049;
+  }
+  
+  button.btn:focus {
+    outline: none;
+  }
+  
+  /* Estilos para la sección de SignUp */
+  .SignIn-SignUp {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .SignIn-SignUp p {
+    color: #555;
+  }
+  
+  .SignUp-link {
+    text-decoration: none;
+  }
+  
+  .SignIn-SignUp .btn {
+    background-color: #007bff;
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+  
+  .SignIn-SignUp .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .SignIn-SignUp .btn:focus {
+    outline: none;
+  }
+  
+  /* Estilo para el ícono de cerrar */
+  .icon-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: #888;
+    cursor: pointer;
+  }
+  
+  .icon-close:hover {
+    color: #333;
+  }
+  
