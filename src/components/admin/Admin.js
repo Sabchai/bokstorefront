@@ -1,347 +1,130 @@
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // Importar useNavigate
+import { FaSun, FaMoon } from 'react-icons/fa'; // Importamos los íconos de sol y luna
+import './admin.css';
 
-import React from 'react'
-import './admin.css'
-const Admin = ({userAcount,logout}) => {
+const Admin = ({ userAccount }) => {
+  const [books] = useState([
+    { id: 1, title: 'The Great Gatsby', author: 'F. Scott Fitzgerald', price: '$10.99', status: 'In Stock' },
+    { id: 2, title: '1984', author: 'George Orwell', price: '$8.99', status: 'Out of Stock' },
+    { id: 3, title: 'Moby Dick', author: 'Herman Melville', price: '$12.99', status: 'In Stock' },
+    { id: 4, title: 'To Kill a Mockingbird', author: 'Harper Lee', price: '$9.99', status: 'In Stock' },
+  ]);
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [darkMode, setDarkMode] = useState(false);
+
+  // Hook para redirigir al usuario
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredBooks = books.filter((book) =>
+    book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    book.author.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Alternar entre modo oscuro y claro
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
+  // Función para manejar el logout y redirigir a la página principal
+  const handleLogout = () => {
+    // Aquí podrías limpiar el estado de autenticación si es necesario
+    // Por ejemplo, si tienes un contexto o un estado global, lo podrías resetear aquí.
+
+    // Redirige a la HomePage
+    navigate('/');
+  };
+
   return (
-    <div><>
-    <div id="notificationContainer" />
-    <div className="dashboard">
-      <nav className="sidebar">
-        <div className="sidebar-header">
-          <img src="https://via.placeholder.com/50" alt="Logo" className="logo" />
-          <h2>{userAcount.role}</h2>
+    <div className={`container ${darkMode ? 'dark-mode' : ''}`}>
+      <aside className="sidebar">
+        <div className="logo">
+          <h2>BookStore <span className="primary">Admin</span></h2>
         </div>
-        <ul className="nav-links">
-          <li className="active" data-page="dashboard">
-            <a href="#dashboard">
-              <i className="fas fa-home" />
-            {userAcount.name}
-            </a>
-          </li>
-          <li data-page="analytics">
-            <a href="#analytics">
-              <i className="fas fa-chart-line" />
-             {userAcount.email}
-            </a>
-          </li>
-          <li data-page="sales">
-            <a href="#sales">
-              <i className="fas fa-shopping-cart" />
-              Sales
-            </a>
-          </li>
-          <li data-page="customers">
-            <a href="#customers">
-              <i className="fas fa-users" />
-              Customers
-            </a>
-          </li>
-          <li data-page="inventory">
-            <a href="#inventory">
-              <i className="fas fa-box" />
-              Inventory
-            </a>
-          </li>
-          <li data-page="settings">
-            <a href="#settings">
-              <i className="fas fa-cog" />
-              Settings
-            </a>
-          </li>
-        </ul>
-      </nav>
+        <nav>
+          <ul>
+            <li><Link to="/admin/dashboard">Dashboard</Link></li>
+            <li><Link to="/admin/products">Products</Link></li>
+            <li><Link to="/admin/orders">Orders</Link></li>
+            <li><Link to="/admin/customers">Customers</Link></li>
+            <li><Link to="/admin/settings">Settings</Link></li>
+            {/* El botón de logout ha sido transformado en un botón con onClick */}
+            <li>
+              <button onClick={handleLogout} className="logout-btn">Logout</button>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
       <main className="main-content">
         <header>
+          <h1>Dashboard</h1>
+          {/* Barra de búsqueda */}
           <div className="search-bar">
-            <input type="text" placeholder="Search..." />
-            <i className="fas fa-search" />
-          </div>
-          <div className="user-info" id="userInfoDropdown">
-            <img
-              src="https://via.placeholder.com/40"
-              alt="User Avatar"
-              className="avatar"
+            <input
+              type="text"
+              placeholder="Search books..."
+              value={searchQuery}
+              onChange={handleSearch}
             />
-            <span>{userAcount.name}</span>
-            <button onClick={()=>logout()}   >Logout</button>
-            <i className="fas fa-chevron-down" />
-            <div className="dropdown-menu" id="profileDropdown">
-              <a href="#profile">
-                <i className="fas fa-user" /> Profile
-              </a>
-              <a href="#settings">
-                <i className="fas fa-cog" /> Settings
-              </a>
-              <a href="#logout">
-                <i className="fas fa-sign-out-alt" /> Logout
-              </a>
-            </div>
           </div>
+
+          {/* Botón para alternar modo oscuro con íconos */}
+          <button onClick={toggleDarkMode} className="dark-mode-toggle">
+            {darkMode ? <FaSun /> : <FaMoon />} {/* Mostrar el ícono dependiendo del modo */}
+          </button>
         </header>
-        <div id="dashboard" className="page-content active">
-          <h1>Dashboard Overview</h1>
-          <div className="stats-grid">
-            <div className="stat-card glow">
-              <i className="fas fa-users" />
-              <div className="stat-info">
-                <h3>Total Users</h3>
-                <p>15,687</p>
-              </div>
-            </div>
-            <div className="stat-card glow">
-              <i className="fas fa-shopping-bag" />
-              <div className="stat-info">
-                <h3>Total Sales</h3>
-                <p>$124,563</p>
-              </div>
-            </div>
-            <div className="stat-card glow">
-              <i className="fas fa-chart-line" />
-              <div className="stat-info">
-                <h3>Revenue</h3>
-                <p>$67,895</p>
-              </div>
-            </div>
-            <div className="stat-card glow">
-              <i className="fas fa-percent" />
-              <div className="stat-info">
-                <h3>Growth</h3>
-                <p>+24.5%</p>
-              </div>
-            </div>
+
+        <section className="stats">
+          <div className="stat">
+            <h3>Total Sales</h3>
+            <p>$52,320</p>
           </div>
-          <div className="charts-container">
-            <div className="chart-card glow">
-              <h3>Sales Analytics</h3>
-              <div id="salesChart" />
-            </div>
-            <div className="chart-card glow">
-              <h3>User Growth</h3>
-              <div id="userGrowthChart" />
-            </div>
+          <div className="stat">
+            <h3>Total Books</h3>
+            <p>{filteredBooks.length}</p>
           </div>
-          <div className="data-tables">
-            <div className="table-card glow">
-              <h3>Recent Orders</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Order ID</th>
-                    <th>Customer</th>
-                    <th>Product</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody id="recentOrdersBody" />
-              </table>
-            </div>
-            <div className="table-card glow">
-              <h3>Top Selling Products</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Sold</th>
-                    <th>Revenue</th>
-                  </tr>
-                </thead>
-                <tbody id="topProductsBody" />
-              </table>
-            </div>
+          <div className="stat">
+            <h3>New Orders</h3>
+            <p>15</p>
           </div>
-        </div>
-        <div id="analytics" className="page-content">
-          <h1>Analytics</h1>
-          <div className="charts-container">
-            <div className="chart-card glow">
-              <h3>Traffic Sources</h3>
-              <div id="trafficSourcesChart" />
-            </div>
-            <div className="chart-card glow">
-              <h3>Conversion Rates</h3>
-              <div id="conversionRatesChart" />
-            </div>
-          </div>
-          <div className="data-tables">
-            <div className="table-card glow">
-              <h3>Top Performing Pages</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Page</th>
-                    <th>Views</th>
-                    <th>Unique Visitors</th>
-                    <th>Avg. Time on Page</th>
-                  </tr>
-                </thead>
-                <tbody id="topPagesBody" />
-              </table>
-            </div>
-          </div>
-        </div>
-        <div id="sales" className="page-content">
-          <h1>Sales Management</h1>
-          <div className="charts-container">
-            <div className="chart-card glow">
-              <h3>Monthly Sales</h3>
-              <div id="monthlySalesChart" />
-            </div>
-            <div className="chart-card glow">
-              <h3>Sales by Category</h3>
-              <div id="salesByCategoryChart" />
-            </div>
-          </div>
-          <div className="data-tables">
-            <div className="table-card glow">
-              <h3>Sales Representatives Performance</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Total Sales</th>
-                    <th>Deals Closed</th>
-                    <th>Performance Score</th>
-                  </tr>
-                </thead>
-                <tbody id="salesRepBody" />
-              </table>
-            </div>
-          </div>
-        </div>
-        <div id="customers" className="page-content">
-          <h1>Customer Management</h1>
-          <div className="charts-container">
-            <div className="chart-card glow">
-              <h3>Customer Acquisition</h3>
-              <div id="customerAcquisitionChart" />
-            </div>
-            <div className="chart-card glow">
-              <h3>Customer Satisfaction</h3>
-              <div id="customerSatisfactionChart" />
-            </div>
-          </div>
-          <div className="data-tables">
-            <div className="table-card glow">
-              <h3>Top Customers</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Customer</th>
-                    <th>Total Spent</th>
-                    <th>Orders</th>
-                    <th>Last Order Date</th>
-                  </tr>
-                </thead>
-                <tbody id="topCustomersBody" />
-              </table>
-            </div>
-          </div>
-        </div>
-        <div id="inventory" className="page-content">
-          <h1>Inventory Management</h1>
-          <div className="charts-container">
-            <div className="chart-card glow">
-              <h3>Stock Levels</h3>
-              <div id="stockLevelsChart" />
-            </div>
-            <div className="chart-card glow">
-              <h3>Product Turnover</h3>
-              <div id="productTurnoverChart" />
-            </div>
-          </div>
-          <div className="data-tables">
-            <div className="table-card glow">
-              <h3>Low Stock Alert</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Product</th>
-                    <th>Current Stock</th>
-                    <th>Reorder Level</th>
-                    <th>Supplier</th>
-                  </tr>
-                </thead>
-                <tbody id="lowStockBody" />
-              </table>
-            </div>
-          </div>
-        </div>
-        <div id="settings" className="page-content">
-          <h1>Settings</h1>
-          <div className="settings-container">
-            <div className="settings-card glow">
-              <h3>Account Settings</h3>
-              <form id="accountSettingsForm">
-                <div className="form-group">
-                  <label htmlFor="username">Username</label>
-                  <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    defaultValue="johndoe"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    defaultValue="john@example.com"
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="password">New Password</label>
-                  <input type="password" id="password" name="password" />
-                </div>
-                <button type="submit" className="btn-primary">
-                  Save Changes
-                </button>
-              </form>
-            </div>
-            <div className="settings-card glow">
-              <h3>Notification Preferences</h3>
-              <form id="notificationSettingsForm">
-                <div className="form-group">
-                  <label>
-                    <input
-                      type="checkbox"
-                      name="emailNotifications"
-                      defaultChecked=""
-                    />
-                    Email Notifications
-                  </label>
-                </div>
-                <div className="form-group">
-                  <label>
-                    <input type="checkbox" name="smsNotifications" />
-                    SMS Notifications
-                  </label>
-                </div>
-                <div className="form-group">
-                  <label>
-                    <input
-                      type="checkbox"
-                      name="pushNotifications"
-                      defaultChecked=""
-                    />
-                    Push Notifications
-                  </label>
-                </div>
-                <button type="submit" className="btn-primary">
-                  Save Preferences
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
+        </section>
+
+        <section className="recent-books">
+          <h2>Recent Books</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredBooks.map((book) => (
+                <tr key={book.id}>
+                  <td>{book.title}</td>
+                  <td>{book.author}</td>
+                  <td>{book.price}</td>
+                  <td>{book.status}</td>
+                  <td>
+                    <Link to={`/admin/products/${book.id}`} className="btn btn-primary">Details</Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
       </main>
     </div>
-  </>
-  </div>
-  )
-}
+  );
+};
 
-export default Admin
+export default Admin;

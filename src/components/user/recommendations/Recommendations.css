@@ -1,0 +1,106 @@
+/* src/user/Recommendations.css */
+.recommendations {
+    background-color: #f4f4f4;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .recommendations h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+    background-image: linear-gradient(45deg, #FF5733, #aa8c09, #3d1603);
+    background-clip: text; 
+    -webkit-background-clip: text; 
+    color: transparent;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+  
+  .book-item {
+    background: linear-gradient(135deg, #ffffff 0%, #f0f4f7 100%);
+    padding: 20px;
+    margin: 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* overflow: hidden; */
+  }
+  
+  .book-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .book-item h4 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #2c3b03;
+    transition: color 0.3s ease;
+  }
+  
+  .book-item h4:hover {
+    color: #007BFF;
+  }
+  
+  .book-item p {
+    font-size: 1rem;
+    color: #555;
+    margin: 8px 0;
+  }
+  
+  .book-item strong {
+    color: #333;
+    font-weight: 600;
+  }
+  
+  .book-item .price {
+    font-size: 1.2rem;
+    color: #e74c3c;
+    font-weight: bold;
+  }
+  
+  .book-item .available {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #28a745;
+  }
+  
+  /* Add a smooth scroll for long lists */
+  .recommendations ul {
+    max-height: 80vh;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .recommendations {
+      padding: 20px;
+    }
+  
+    .recommendations h2 {
+      font-size: 1.5rem;
+    }
+  
+    .book-item {
+      padding: 15px;
+    }
+  }
+  

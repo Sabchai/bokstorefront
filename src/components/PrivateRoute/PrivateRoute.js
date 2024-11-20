@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { fetchUser } from '../../api/authApi';
 import { useNavigate } from 'react-router-dom';
+import User from '../user/User';
+import Admin from '../admin/Admin';
 
 const PrivateRoute = () => {
   const [userAccount, setUserAccount] = useState('');
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -35,10 +37,10 @@ console.log(token)
 
   const logout = () => {
     localStorage.removeItem('token');
-    navigate('/SignIn');
+    navigate('/HomePage');
   };
 
-  
+  console.log(userAccount.role)
 
   if (error) {
     return <div>{error}</div>;  // Afficher une erreur si un problème survient
@@ -46,7 +48,9 @@ console.log(token)
 
   return (
     <div>
-      <h1>Bienvenue {userAccount.name} </h1>  {/* Afficher le nom d'utilisateur si disponible */}
+    {userAccount.role === "admin" ? <Admin userAccount={userAccount} /> : <User userAccount={userAccount} />}
+      
+       {/* Afficher le nom d'utilisateur si disponible */}
       <button onClick={logout}>Logout</button>
     </div>
   );
